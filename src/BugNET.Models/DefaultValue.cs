@@ -7,7 +7,7 @@ namespace BugNET.Models
     using System.Data.Entity.Spatial;
 
     [Table("BugNet_DefaultValues")]
-    public partial class DefaultValues
+    public partial class DefaultValue
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

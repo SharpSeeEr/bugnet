@@ -10,22 +10,22 @@ namespace BugNET.Models
     public partial class RelatedIssue
     {
         [Key]
-        [Column(Order = 0)]
+        [Column("PrimaryIssueId", Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int PrimaryIssueId { get; set; }
+        public int ParentIssueId { get; set; }
 
         [Key]
-        [Column(Order = 1)]
+        [Column("SecondaryIssueId", Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int SecondaryIssueId { get; set; }
+        public int ChildIssueId { get; set; }
 
         [Key]
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RelationType { get; set; }
 
-        public virtual Issue PrimaryIssue { get; set; }
+        public virtual Issue ParentIssue { get; set; }
 
-        public virtual Issue SecondaryIssue { get; set; }
+        public virtual Issue ChildIssue { get; set; }
     }
 }

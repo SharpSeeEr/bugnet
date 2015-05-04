@@ -20,8 +20,8 @@ namespace BugNET.Models
             Votes = new HashSet<IssueVote>();
             WorkReports = new HashSet<IssueWorkReport>();
             CustomFieldValues = new HashSet<CustomFieldValue>();
-            RelatedIssues = new HashSet<RelatedIssue>();
-            RelatedIssues1 = new HashSet<RelatedIssue>();
+            ParentIssues = new HashSet<RelatedIssue>();
+            ChildIssues = new HashSet<RelatedIssue>();
         }
 
         [Key]
@@ -68,7 +68,7 @@ namespace BugNET.Models
         public DateTime? DueDate { get; set; }
 
         [Column("IssueMilestoneId")]
-        public int? ilestoneId { get; set; }
+        public int? MilestoneId { get; set; }
 
         [Column("IssueVisibility")]
         public int Visibility { get; set; }
@@ -87,20 +87,7 @@ namespace BugNET.Models
 
         public bool Disabled { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IssueAttachment> Attachments { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IssueComment> Comments { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IssueHistory> History { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IssueNotification> Notifications { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IssueRevision> Revisions { get; set; }
+        #region Single Navigation Properties
 
         public virtual Category Category { get; set; }
 
@@ -116,7 +103,26 @@ namespace BugNET.Models
 
         public virtual Project Project { get; set; }
 
-        public virtual ProjectStatus Status { get; set; }
+        public virtual Status Status { get; set; }
+
+        #endregion
+
+        #region Collection Navigation Properties
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IssueAttachment> Attachments { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IssueComment> Comments { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IssueHistory> History { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IssueNotification> Notifications { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IssueRevision> Revisions { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IssueVote> Votes { get; set; }
@@ -128,9 +134,11 @@ namespace BugNET.Models
         public virtual ICollection<CustomFieldValue> CustomFieldValues { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RelatedIssue> RelatedIssues { get; set; }
+        public virtual ICollection<RelatedIssue> ParentIssues { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RelatedIssue> RelatedIssues1 { get; set; }
+        public virtual ICollection<RelatedIssue> ChildIssues { get; set; }
+
+        #endregion
     }
 }

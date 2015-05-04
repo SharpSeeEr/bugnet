@@ -7,10 +7,10 @@ namespace BugNET.Models
     using System.Data.Entity.Spatial;
 
     [Table("BugNet_ProjectStatus")]
-    public partial class ProjectStatus
+    public partial class Status
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProjectStatus()
+        public Status()
         {
             Issues = new HashSet<Issue>();
         }
@@ -35,6 +35,6 @@ namespace BugNET.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Issue> Issues { get; set; }
 
-        public virtual Project Projects { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

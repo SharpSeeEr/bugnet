@@ -17,10 +17,11 @@ namespace BugNET.Models
         public int CustomFieldId { get; set; }
 
         [Required]
-        public string CustomFieldValue { get; set; }
+        [Column("CustomFieldValue")]
+        public string FieldValue { get; set; }
 
         public virtual Issue Issue { get; set; }
 
-        public virtual CustomField ProjectCustomFields { get; set; }
+        public virtual CustomField CustomField { get; set; }
     }
 }

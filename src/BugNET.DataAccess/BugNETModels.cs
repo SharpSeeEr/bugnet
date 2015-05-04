@@ -14,7 +14,7 @@ namespace BugNET.DataAccess
         }
 
         public virtual DbSet<ApplicationLog> ApplicationLog { get; set; }
-        public virtual DbSet<DefaultValues> DefaultValues { get; set; }
+        public virtual DbSet<DefaultValue> DefaultValues { get; set; }
         public virtual DbSet<DefaultValuesVisibility> DefaultValuesVisibility { get; set; }
         public virtual DbSet<HostSetting> HostSettings { get; set; }
         public virtual DbSet<IssueAttachment> IssueAttachments { get; set; }
@@ -39,7 +39,7 @@ namespace BugNET.DataAccess
         public virtual DbSet<Priority> ProjectPriorities { get; set; }
         public virtual DbSet<Resolution> ProjectResolutions { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<ProjectStatus> ProjectStatus { get; set; }
+        public virtual DbSet<Status> ProjectStatus { get; set; }
         public virtual DbSet<Query> Queries { get; set; }
         public virtual DbSet<QueryClause> QueryClauses { get; set; }
         public virtual DbSet<RelatedIssue> RelatedIssues { get; set; }
@@ -71,7 +71,7 @@ namespace BugNET.DataAccess
                 .Property(e => e.Exception)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<DefaultValues>()
+            modelBuilder.Entity<DefaultValue>()
                 .Property(e => e.IssueEstimation)
                 .HasPrecision(5, 2);
 
@@ -85,14 +85,14 @@ namespace BugNET.DataAccess
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Issue>()
-                .HasMany(e => e.RelatedIssues)
-                .WithRequired(e => e.PrimaryIssue)
-                .HasForeignKey(e => e.PrimaryIssueId);
+                .HasMany(e => e.ParentIssues)
+                .WithRequired(e => e.ParentIssue)
+                .HasForeignKey(e => e.ParentIssueId);
 
             modelBuilder.Entity<Issue>()
-                .HasMany(e => e.RelatedIssues1)
-                .WithRequired(e => e.SecondaryIssue)
-                .HasForeignKey(e => e.SecondaryIssueId)
+                .HasMany(e => e.ChildIssues)
+                .WithRequired(e => e.ChildIssue)
+                .HasForeignKey(e => e.ChildIssueId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<IssueWorkReport>()
@@ -111,13 +111,13 @@ namespace BugNET.DataAccess
 
             modelBuilder.Entity<CustomField>()
                 .HasMany(e => e.ProjectCustomFieldValues)
-                .WithRequired(e => e.ProjectCustomFields)
+                .WithRequired(e => e.CustomField)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Milestone>()
                 .HasMany(e => e.Issues)
                 .WithOptional(e => e.Milestone)
-                .HasForeignKey(e => e.ilestoneId);
+                .HasForeignKey(e => e.MilestoneId);
 
             modelBuilder.Entity<Milestone>()
                 .HasMany(e => e.Issues1)
@@ -144,7 +144,7 @@ namespace BugNET.DataAccess
                 .WithOptional(e => e.Project)
                 .WillCascadeOnDelete();
 
-            modelBuilder.Entity<ProjectStatus>()
+            modelBuilder.Entity<Status>()
                 .HasMany(e => e.Issues)
                 .WithOptional(e => e.Status)
                 .HasForeignKey(e => e.StatusId);

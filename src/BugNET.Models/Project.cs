@@ -21,7 +21,7 @@ namespace BugNET.Models
             ProjectNotifications = new HashSet<ProjectNotification>();
             ProjectPriorities = new HashSet<Priority>();
             ProjectResolutions = new HashSet<Resolution>();
-            ProjectStatus = new HashSet<ProjectStatus>();
+            ProjectStatus = new HashSet<Status>();
             Queries = new HashSet<Query>();
             Roles = new HashSet<Role>();
             UserProjects = new HashSet<UserProject>();
@@ -72,7 +72,7 @@ namespace BugNET.Models
 
         public long? ProjectImageFileSize { get; set; }
 
-        public virtual DefaultValues DefaultValues { get; set; }
+        public virtual DefaultValue DefaultValues { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Issue> Issues { get; set; }
@@ -102,7 +102,7 @@ namespace BugNET.Models
         public virtual ICollection<Resolution> ProjectResolutions { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectStatus> ProjectStatus { get; set; }
+        public virtual ICollection<Status> ProjectStatus { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Query> Queries { get; set; }

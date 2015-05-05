@@ -1,20 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EFD03A92-584B-4930-9FB1-58DF64BF7FD4}</ProjectGuid>
+    <ProjectGuid>{0507552B-DDE6-473C-A481-6A3CABEF7C1A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BugNET.DAL</RootNamespace>
-    <AssemblyName>BugNET.DAL</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>BugNET.Providers.DataProviders</RootNamespace>
+    <AssemblyName>BugNET.Providers.EFDataProvider</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,32 +28,24 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Common\GlobalAssemblyInfo.cs">
-      <Link>Properties\GlobalAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="DataProvider.cs" />
-    <Compile Include="DataProviderCollection.cs" />
-    <Compile Include="DataProviderConfiguration.cs" />
-    <Compile Include="DataProviderManager.cs" />
-    <Compile Include="IDataProvider.cs" />
+    <Compile Include="EFDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,9 +53,13 @@
       <Project>{69F2F661-AA9A-4C9F-8217-6A22E8C66FEB}</Project>
       <Name>BugNET.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BugNET.Entities\BugNET.Entities.csproj">
-      <Project>{5A0AE67B-1F8C-4A6D-A02B-B57BB219288F}</Project>
-      <Name>BugNET.Entities</Name>
+    <ProjectReference Include="..\BugNET.DAL\BugNET.DAL.csproj">
+      <Project>{efd03a92-584b-4930-9fb1-58df64bf7fd4}</Project>
+      <Name>BugNET.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BugNET.DataAccess\BugNET.DataAccess.csproj">
+      <Project>{d956636b-a6f8-47c6-9ade-3600e950e8de}</Project>
+      <Name>BugNET.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\BugNET.Models\BugNET.Models.csproj">
       <Project>{9b2d62f5-7cb2-4e81-90d8-1d3a3b535f7c}</Project>

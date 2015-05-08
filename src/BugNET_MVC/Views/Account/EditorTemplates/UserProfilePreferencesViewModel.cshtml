@@ -1,0 +1,24 @@
+﻿@model UserProfilePreferencesViewModel
+
+<form class="form-horizontal" method="post" action="@Url.Action("UserProfilePreferences")">
+  @Html.HiddenFor(m => m.UserName)
+  <div class="form-group">
+    <label class="control-label col-md-2">@Resources.Account.Profile.ItemPageSize</label>
+    <div class="col-md-1">
+      @Html.DropDownListFor(m => m.IssuesPageSize, Model.PageSizeOptions, new { @class = "form-control" })
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-md-2">@Resources.Account.Profile.PreferredLocale</label>
+    <div class="col-sm-4 col-md-3 col-lg-2">
+      @Html.DropDownListFor(m => m.PreferredLocale, Model.LocaleOptions, new { @class = "form-control" })
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-4 col-md-offset-2">
+      <button class="btn btn-primary">@Resources.Shared.Save</button>
+    </div>
+  </div>
+</form>

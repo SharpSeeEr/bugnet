@@ -58,7 +58,6 @@
     <Compile Include="DataProviderCollection.cs" />
     <Compile Include="DataProviderConfiguration.cs" />
     <Compile Include="DataProviderManager.cs" />
-    <Compile Include="IDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

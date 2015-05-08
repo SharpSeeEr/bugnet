@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugNET_MVC.Models;
+using BugNET.Repository;
+using AutoMapper;
+using BugNET.Models;
 
 namespace BugNET_MVC.Controllers
 {
@@ -38,6 +41,67 @@ namespace BugNET_MVC.Controllers
                 _userManager = value;
             }
         }
+
+        public ActionResult UserProfile(string id)
+        {
+            // Todo:  Move this logic to a Manager class
+            using (var repo = Repo.Open())
+            {
+                var profile = repo.GetUserProfile(User.Identity.Name);
+                if (profile == null)
+                {
+                    profile = new BugNET.Models.UserProfile() 
+                    { 
+                        UserName = User.Identity.Name,
+                        LastUpdate = DateTime.UtcNow,
+                        IssuesPageSize = 10,
+                        PreferredLocale = "en-US"
+                    };
+                    repo.Add(profile);
+                    repo.SaveChanges();
+                }
+                var model = Mapper.Map<UserProfile, UserProfileViewModel>(profile);
+                Mapper.Map<UserProfile, UserProfileDetailsViewModel>(profile, model.Details);
+                Mapper.Map<UserProfile, UserProfilePreferencesViewModel>(profile, model.Preferences);
+                Mapper.Map<UserProfile, UserProfileNotificationsViewModel>(profile, model.Notifications);
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UserProfileDetails(UserProfileViewModel model)
+        {
+            UpdateUserProfile(model.Details.UserName, model.Details);
+            return RedirectToAction("UserProfile");
+        }
+
+        [HttpPost]
+        public ActionResult UserProfilePreferences(UserProfileViewModel model)
+        {
+            UpdateUserProfile(model.Preferences.UserName, model.Preferences);
+            return RedirectToAction("UserProfile");
+        }
+
+        [HttpPost]
+        public ActionResult UserProfileNotifications(UserProfileViewModel model)
+        {
+            UpdateUserProfile(model.Notifications.UserName, model.Notifications);
+            return RedirectToAction("UserProfile");
+        }
+
+        private void UpdateUserProfile<T>(string userName, T model)
+        {
+            using (var repo = Repo.Open())
+            {
+                var entity = WebProfile.Current;
+                repo.Attach(entity);
+                Mapper.Map(model, entity);
+                entity.LastUpdate = DateTime.UtcNow;
+                repo.SaveChanges();
+                WebProfile.Current = entity;
+            }
+        }
+
 
         //
         // GET: /Account/Login

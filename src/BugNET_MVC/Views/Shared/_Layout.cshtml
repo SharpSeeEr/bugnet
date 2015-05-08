@@ -3,42 +3,49 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - @Settings.Get(HostSettingNames.ApplicationTitle)</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <a class="navbar-brand navbar-brand-image" href="@Url.Action("Index", "Home")">
+          <img src="@Url.Content("~/Images/logo.png")" width="40" height="40" />
+        </a>
+        @Html.ActionLink("BugNET", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        </ul>
+        @Html.Partial("_LoginPartial")
+        <form class="navbar-form navbar-right" role="search">
+          <div class="input-group">
+            <input type="search" placeholder="@Resources.Shared.Search" id="SearchBox" class="form-control" />
+            <span class="input-group-btn">
+              <button class="btn btn-success"><span class="fa fa-search"></span></button>
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+  </div>
+  <div class="container-fluid body-content">
+    @RenderBody()
+    <hr />
+    <footer>
+      <p>@Resources.Shared.PoweredBy &lt;version&gt;</p>
+    </footer>
+  </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+  @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/bundles/bootstrap")
+  @RenderSection("scripts", required: false)
 </body>
 </html>

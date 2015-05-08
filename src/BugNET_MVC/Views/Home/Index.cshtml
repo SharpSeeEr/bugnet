@@ -1,31 +1,53 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
+@helper Step(string label, string linkText, string action, string controller)
+{
+  @(label + " ")
+  @Html.ActionLink(linkText, action, controller)
+}
+<h1>@Settings.Get(HostSettingNames.ApplicationTitle)</h1>
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+  <div class="col-sm-3">
+    <div class="well">
+      @Html.Raw(Settings.Get(HostSettingNames.WelcomeMessage))
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+  </div>
+
+  <div class="col-sm-9">
+    @* if no projects *@
+    <div class="jumbotron" id="BlankSlate">
+      <h1>@Resources.Home.Index.WelcomeMessageHeader</h1>
+      <p>@Resources.Home.Index.NoProjects</p>
+
+      <ul class="list-unstyled">
+        <li>
+          <span class="fa fa-stack fa-2x">
+            <span class="fa fa-circle fa-stack-2x number"></span>
+            <strong class="fa-stack-1x number-text">1</strong>
+          </span>&nbsp;
+          @Step(Resources.Home.Index.Step1_MessageFormat, Resources.Home.Index.Step1_LinkText, "AddProject", "Administration")
+        </li>
+        <li>
+          <span class="fa fa-stack fa-2x">
+            <span class="fa fa-circle fa-stack-2x number"></span>
+            <strong class="fa-stack-1x number-text">2</strong>
+          </span>&nbsp;
+          @Step(Resources.Home.Index.Step2_MessageFormat, Resources.Home.Index.Step2_LinkText, "HostSettings", "Administration")
+        </li>
+        <li>
+          <span class="fa fa-stack fa-2x">
+            <i class="fa fa-circle fa-stack-2x number"></i>
+            <strong class="fa-stack-1x number-text">3</strong>
+          </span>&nbsp;
+          @Step(Resources.Home.Index.Step3_MessageFormat, Resources.Home.Index.Step3_LinkText, "HostSettings", "Administration")
+        </li>
+      </ul>
+      <p>
+        <a class="btn btn-primary btn-lg" href="http://bugnet.codeplex.com/documentation" role="button">
+          @Resources.Home.Index.LearnMore
+        </a>
+      </p>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+  </div>
 </div>

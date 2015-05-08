@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="ActionEventArgs.cs" />
     <Compile Include="AdminMenuItem.cs" />
+    <Compile Include="EnumHelper.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="DataAccessException.cs" />
     <Compile Include="EmailFormatType.cs" />

@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using BugNET.Models;
 using BugNET.Common;
 
-namespace BugNET.DAL
+namespace BugNET.Repository
 {
-    public interface IDataProvider
+    public interface IDataRepository
     {
-        bool SupportsProjectCloning { get; }
+        //bool SupportsProjectCloning { get; }
+
+        // Host Settings
+        List<HostSetting> GetHostSettings();
+        bool UpdateHostSetting(string settingName, string settingValue);
 
         //*** ABSTRACT METHODS ***/
         DataAccessException ProcessException(Exception ex);
@@ -224,9 +228,7 @@ namespace BugNET.DAL
         CustomFieldSelection GetCustomFieldSelectionById(int customFieldSelectionId);
         bool UpdateCustomFieldSelection(CustomFieldSelection customFieldSelectionToUpdate);
 
-        // Host Settings
-        List<HostSetting> GetHostSettings();
-        bool UpdateHostSetting(string settingName, string settingValue);
+        
 
         // Issue Work Reports
         int CreateNewIssueWorkReport(IssueWorkReport workReportToCreate);

@@ -6,9 +6,9 @@ namespace BugNET.DataAccess
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class BugNETModels : DbContext
+    public partial class BugNETDbContext : DbContext
     {
-        public BugNETModels()
+        public BugNETDbContext()
             : base("name=BugNET")
         {
         }

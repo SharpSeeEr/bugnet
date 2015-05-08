@@ -1,8 +1,107 @@
-﻿using System.Collections.Generic;
+﻿using BugNET.Models;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BugNET_MVC.Models
 {
+    public class UserProfileViewModel
+    {
+        [StringLength(50)]
+        public string UserName { get; set; }
+
+        public UserProfileDetailsViewModel Details { get; set; }
+        public UserProfilePreferencesViewModel Preferences { get; set; }
+        public UserProfileNotificationsViewModel Notifications { get; set; }
+
+        public UserProfileViewModel()
+        {
+            Details = new UserProfileDetailsViewModel();
+            Preferences = new UserProfilePreferencesViewModel();
+            Notifications = new UserProfileNotificationsViewModel();
+        }
+    }
+
+    public class UserProfileDetailsViewModel
+    {
+        [StringLength(50)]
+        public string UserName { get; set; }
+        
+        [StringLength(100)]
+        public string FirstName { get; set; }
+
+        [StringLength(100)]
+        public string LastName { get; set; }
+
+        [StringLength(100)]
+        public string DisplayName { get; set; }
+    }
+
+    public class UserProfilePreferencesViewModel
+    {
+        [StringLength(50)]
+        public string UserName { get; set; }
+        
+        public int? IssuesPageSize { get; set; }
+
+        [StringLength(50)]
+        public string PreferredLocale { get; set; }
+
+        private static int[] _pageSizeOptions = new int[] { 5, 10, 15, 25, 50, 75, 100, 250 };
+
+        public IEnumerable<System.Web.Mvc.SelectListItem> PageSizeOptions
+        {
+            get
+            {
+                foreach (var size in _pageSizeOptions)
+                {
+                    yield return new System.Web.Mvc.SelectListItem() { Text = size.ToString(), Value = size.ToString() };
+                }
+                yield break;
+            }
+        }
+
+        private static IList<System.Globalization.CultureInfo> _installedCultureCodes;
+
+        public IEnumerable<System.Web.Mvc.SelectListItem> LocaleOptions
+        {
+            get
+            {
+                foreach (var code in _installedCultureCodes)
+                {
+                    yield return new System.Web.Mvc.SelectListItem()
+                    {
+                        Text = code.DisplayName,
+                        Value = code.Name
+                    };
+                }
+                yield break;
+            }
+        }
+
+        static UserProfilePreferencesViewModel()
+        {
+            using (var repo = BugNET.Repository.Repo.Open())
+            {
+                _installedCultureCodes = repo.GetLanguages()
+                    .Select(e => new System.Globalization.CultureInfo(e.CultureCode))
+                    .ToList();
+            }
+        }
+    }
+
+    public class UserProfileNotificationsViewModel
+    {
+        [StringLength(50)]
+        public string UserName { get; set; }
+        
+        [StringLength(50)]
+        public string SelectedIssueColumns { get; set; }
+
+        public bool ReceiveEmailNotifications { get; set; }
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

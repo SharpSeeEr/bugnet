@@ -15,7 +15,7 @@
     <AssemblyName>BugNET_MVC</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -180,6 +180,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\FontAwesomeBundleConfig.cs" />
@@ -192,10 +193,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\LoginHtmlHelperExtension.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\WebProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Account\Profile.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Profile.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Home\Index.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Shared.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shared.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -205,11 +224,20 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Site.css">
+      <DependentUpon>Site.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Site.css.map">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
+    <None Include="Content\Site.less" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -222,6 +250,165 @@
     <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Icon.png" />
+    <Content Include="Images\accept.gif" />
+    <Content Include="Images\acrobat.gif" />
+    <Content Include="Images\add.gif" />
+    <Content Include="Images\application_add.gif" />
+    <Content Include="Images\application_double.gif" />
+    <Content Include="Images\application_edit.gif" />
+    <Content Include="Images\application_home.gif" />
+    <Content Include="Images\application_home.png" />
+    <Content Include="Images\arrow_left.gif" />
+    <Content Include="Images\arrow_out.gif" />
+    <Content Include="Images\attach.gif" />
+    <Content Include="Images\btn_red.png" />
+    <Content Include="Images\Bug.gif" />
+    <Content Include="Images\bullet_arrow_down.png" />
+    <Content Include="Images\bullet_arrow_left.png" />
+    <Content Include="Images\bullet_arrow_up.png" />
+    <Content Include="Images\bullet_black.gif" />
+    <Content Include="Images\bullet_go.gif" />
+    <Content Include="Images\bullet_green.gif" />
+    <Content Include="Images\calendar.gif" />
+    <Content Include="Images\cancel.gif" />
+    <Content Include="Images\Clock.gif" />
+    <Content Include="Images\clock_add.gif" />
+    <Content Include="Images\close.gif" />
+    <Content Include="Images\close.png" />
+    <Content Include="Images\comment.gif" />
+    <Content Include="Images\comments.gif" />
+    <Content Include="Images\comment_add.gif" />
+    <Content Include="Images\comment_delete.gif" />
+    <Content Include="Images\comment_edit.gif" />
+    <Content Include="Images\Critical.gif" />
+    <Content Include="Images\cross.gif" />
+    <Content Include="Images\date_next.png" />
+    <Content Include="Images\default.png" />
+    <Content Include="Images\disable.gif" />
+    <Content Include="Images\disk.gif" />
+    <Content Include="Images\down.gif" />
+    <Content Include="Images\down_arrow.gif" />
+    <Content Include="Images\email.gif" />
+    <Content Include="Images\email_add.gif" />
+    <Content Include="Images\email_go.gif" />
+    <Content Include="Images\error.gif" />
+    <Content Include="Images\excel.gif" />
+    <Content Include="Images\exclamation.gif" />
+    <Content Include="Images\execute_sql.png" />
+    <Content Include="Images\fade.png" />
+    <Content Include="Images\feed.gif" />
+    <Content Include="Images\google_btn_red.png" />
+    <Content Include="Images\greencircle.png" />
+    <Content Include="Images\history.gif" />
+    <Content Include="Images\icon_facebook.png" />
+    <Content Include="Images\icon_microsoft.png" />
+    <Content Include="Images\icon_twitter.png" />
+    <Content Include="Images\indicator.gif" />
+    <Content Include="Images\information.gif" />
+    <Content Include="Images\internet-mail.png" />
+    <Content Include="Images\IssueType\Any.gif" />
+    <Content Include="Images\IssueType\Bug.gif" />
+    <Content Include="Images\IssueType\future-projects.png" />
+    <Content Include="Images\IssueType\Improvement.gif" />
+    <Content Include="Images\IssueType\issue.png" />
+    <Content Include="Images\IssueType\NewFeature.gif" />
+    <Content Include="Images\IssueType\page_white_star.png" />
+    <Content Include="Images\IssueType\Reminder.png" />
+    <Content Include="Images\IssueType\Task.gif" />
+    <Content Include="Images\IssueType\Task2.png" />
+    <Content Include="Images\key.gif" />
+    <Content Include="Images\key_delete.gif" />
+    <Content Include="Images\key_go.gif" />
+    <Content Include="Images\left_bull1.gif" />
+    <Content Include="Images\link.gif" />
+    <Content Include="Images\link_add.gif" />
+    <Content Include="Images\lock.gif" />
+    <Content Include="Images\lock_open.gif" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\lt.gif" />
+    <Content Include="Images\magnifier.gif" />
+    <Content Include="Images\mailbox.png" />
+    <Content Include="Images\Milestone\M1.gif" />
+    <Content Include="Images\Milestone\M2.gif" />
+    <Content Include="Images\Milestone\M3.gif" />
+    <Content Include="Images\Milestone\package.gif" />
+    <Content Include="Images\minus.gif" />
+    <Content Include="Images\noimage.gif" />
+    <Content Include="Images\noprofile.png" />
+    <Content Include="Images\package.gif" />
+    <Content Include="Images\package_add.gif" />
+    <Content Include="Images\package_delete.gif" />
+    <Content Include="Images\package_go.gif" />
+    <Content Include="Images\page_go.gif" />
+    <Content Include="Images\page_white_add.gif" />
+    <Content Include="Images\page_white_delete.gif" />
+    <Content Include="Images\page_white_error.png" />
+    <Content Include="Images\page_white_gear.png" />
+    <Content Include="Images\page_white_go.gif" />
+    <Content Include="Images\page_white_put.gif" />
+    <Content Include="Images\page_white_refresh.png" />
+    <Content Include="Images\page_white_world.png" />
+    <Content Include="Images\pencil.gif" />
+    <Content Include="Images\pie_chart.png" />
+    <Content Include="Images\plugin.gif" />
+    <Content Include="Images\plugin_add.gif" />
+    <Content Include="Images\plugin_delete.gif" />
+    <Content Include="Images\plugin_disabled.gif" />
+    <Content Include="Images\plus.gif" />
+    <Content Include="Images\printer.gif" />
+    <Content Include="Images\Priority\Blocker.gif" />
+    <Content Include="Images\Priority\Critical.gif" />
+    <Content Include="Images\Priority\critical1.png" />
+    <Content Include="Images\Priority\Major.gif" />
+    <Content Include="Images\Priority\Minor.gif" />
+    <Content Include="Images\Priority\Trivial.gif" />
+    <Content Include="Images\progressbar.png" />
+    <Content Include="Images\Resolution\accept.gif" />
+    <Content Include="Images\Resolution\page_red.png" />
+    <Content Include="Images\Resolution\page_white_copy.png" />
+    <Content Include="Images\Resolution\page_white_delete.png" />
+    <Content Include="Images\Resolution\page_white_remove.png" />
+    <Content Include="Images\restore.gif" />
+    <Content Include="Images\resultset_first.gif" />
+    <Content Include="Images\resultset_last.gif" />
+    <Content Include="Images\resultset_next.gif" />
+    <Content Include="Images\resultset_previous.gif" />
+    <Content Include="Images\save.gif" />
+    <Content Include="Images\shield.gif" />
+    <Content Include="Images\shield_add.gif" />
+    <Content Include="Images\shield_delete.gif" />
+    <Content Include="Images\sql_delete_query.png" />
+    <Content Include="Images\sql_edit_query.png" />
+    <Content Include="Images\sql_new_query.png" />
+    <Content Include="Images\Status\01.png" />
+    <Content Include="Images\Status\02.png" />
+    <Content Include="Images\Status\03.png" />
+    <Content Include="Images\Status\04.png" />
+    <Content Include="Images\Status\05.png" />
+    <Content Include="Images\Status\06.png" />
+    <Content Include="Images\Status\07.png" />
+    <Content Include="Images\Status\08.png" />
+    <Content Include="Images\Status\09.png" />
+    <Content Include="Images\Status\10.png" />
+    <Content Include="Images\svnLogo_sm.jpg" />
+    <Content Include="Images\table_edit.gif" />
+    <Content Include="Images\textfield.gif" />
+    <Content Include="Images\textfield_add.gif" />
+    <Content Include="Images\textfield_delete.gif" />
+    <Content Include="Images\text_columns.gif" />
+    <Content Include="Images\tick.gif" />
+    <Content Include="Images\time.gif" />
+    <Content Include="Images\time_add.gif" />
+    <Content Include="Images\up.gif" />
+    <Content Include="Images\user.gif" />
+    <Content Include="Images\users_group.png" />
+    <Content Include="Images\user_add.gif" />
+    <Content Include="Images\user_comment.gif" />
+    <Content Include="Images\user_delete.gif" />
+    <Content Include="Images\user_edit.gif" />
+    <Content Include="Images\vcard.gif" />
+    <Content Include="Images\word.gif" />
+    <Content Include="Images\xml_small.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -276,6 +463,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Account\EditorTemplates\UserProfileDetailsViewModel.cshtml" />
+    <Content Include="Views\Account\EditorTemplates\UserProfilePreferencesViewModel.cshtml" />
+    <Content Include="Views\Account\EditorTemplates\UserProfileNotificationsViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -285,22 +476,38 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BugNET.BLL\BugNET.BLL.csproj">
-      <Project>{001b5c78-cc5e-4db6-a03a-eaae1d558d2c}</Project>
-      <Name>BugNET.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BugNET.Common\BugNET.Common.csproj">
       <Project>{69f2f661-aa9a-4c9f-8217-6a22e8c66feb}</Project>
       <Name>BugNET.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BugNET.DAL\BugNET.DAL.csproj">
-      <Project>{efd03a92-584b-4930-9fb1-58df64bf7fd4}</Project>
-      <Name>BugNET.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\BugNET.Models\BugNET.Models.csproj">
       <Project>{9b2d62f5-7cb2-4e81-90d8-1d3a3b535f7c}</Project>
       <Name>BugNET.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BugNET.Repository\BugNET.Repository.csproj">
+      <Project>{a16a3709-31de-450a-b505-edc29f32b555}</Project>
+      <Name>BugNET.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Home\Index.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Home</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Shared.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Shared.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Account\Profile.resx">
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>Resources.Account</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Profile.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -316,16 +523,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55196</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55196/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

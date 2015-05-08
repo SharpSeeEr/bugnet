@@ -6,7 +6,7 @@ namespace BugNET.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("BugNet_")]
+    [Table("BugNet_UserProfiles")]
     public partial class UserProfile
     {
         [Key]
